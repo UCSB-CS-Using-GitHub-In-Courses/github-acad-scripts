@@ -126,16 +126,53 @@ That should clone the repository that contains the scripts.  There is one more t
 
 (5) To populate the PyGithub subdirectory, do this:
 
-git submodule init
-git submodule update
+ git submodule init
+ git submodule update
 
 That should populate the PyGithub subdirectory with contents.   That will allow the scripts to load PyGithub as needed.
+
+Set up Environment Variables
+============================
+
+First create an env variable for your organization
+
+ export GHA_GITHUB_ORG=UCSB-CS56-W14
+
+Next, one for the spreadsheet that has your student info
+
+ export GHA_STUDENT_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+
+Next, the spreadsheet that has your pair teams
+
+ export GHA_PAIR_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+
+Next, the directory where you get your starting point files for assignments.  
+The scripts will look under that directory for another directory with the
+starting point for each assignment.   That directory might be a github repo,
+or a regular directory.
+
+ export GHA_STARTPOINT_DIR=~/courses/cs56/W14/labStartingPoints
+
+Finally, create a scratch directory for working files.  This needs to
+be a writeable directory.  It is where various files will be stored
+that the scripts need to do their job.
+
+ export GHA_WORKDIR=~/cs56-W14-gha-work
+
+Here are those again:
+
+ export GHA_GITHUB_ORG=UCSB-CS56-W14
+ export GHA_STUDENT_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+ export GHA_PAIR_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+ export GHA_STARTPOINT_DIR=~/courses/cs56/W14/labStartingPoints
+ export GHA_WORKDIR=~/cs56-W14-gha-work
 
 
 Creating Student Teams
 ======================
 
-The first step is to set up singleton pull/pull teams within the Organization, one for each student.
+The first step is to set up singleton pull/pull teams within the
+Organization, one for each student.
 
 Our naming convention for these is:
 
@@ -166,9 +203,9 @@ So,these singleton teams are the most straightforward way we've found to set up 
 
 If there is another work flow that is simpler and accomplishes the same goals, we are interested to know!  Email us, or post a comment in our github repo.
 
-(1) Identify a source of data.
+(1) Set environment variables as shown above.
 
-The environment variable 
+(2) Run the script 
 
 TODO... CONTINUE FROM HERE.... 
 
@@ -203,11 +240,12 @@ Note that if the top level directory (e.g. CS1_F13_Labs in this example) is a gi
 
 (2) Into lab00_startingPoint, Put the files you want every student to have in their lab00 repo when they first clone it.
 
-(3) Setup an environment variable called GHAW_START_PT (GHAW=github academic workflow) that points to this starting point directory, e.g. in bash:
+(3) Setup an environment variable called GHA_START_PT (GHA=github academic workflow) that points to this starting point directory, e.g. in bash:
 
-export GHAW_START_PT=~/courses/CS1/CS1_F13_Labs
+export GHA_START_PT=~/courses/CS56/CS45_F13_Labs
 
-The scripts will look in that directory for the subdirectory XXX_startingPoint (where XXX is the name of your assignment).
+The scripts will look in that directory for a subdirectory with the same name as your assignment
+
 
 
 

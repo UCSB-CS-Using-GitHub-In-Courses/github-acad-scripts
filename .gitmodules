@@ -1,3 +1,6 @@
 [submodule "PyGithub"]
 	path = PyGithub
 	url = git://github.com/jacquev6/PyGithub.git
+[submodule "requests"]
+	path = requests
+	url = git://github.com/kennethreitz/requests.git
