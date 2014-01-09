@@ -142,9 +142,15 @@ Next, one for the spreadsheet that has your student info
 
  export GHA_STUDENT_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
 
+This should be the URL for the "publish to web" link in Google Drive,
+without the &output=html part, since the script will append &output=csv to it
+automatically.
+
 Next, the spreadsheet that has your pair teams
 
  export GHA_PAIR_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+
+Same thing: this should be the 'publish to web' link.
 
 Next, the directory where you get your starting point files for assignments.  
 The scripts will look under that directory for another directory with the
@@ -207,7 +213,20 @@ If there is another work flow that is simpler and accomplishes the same goals, w
 
 (2) Run the script 
 
-TODO... CONTINUE FROM HERE.... 
+./addStudentsToTeams.py
+
+By default, the script tried to use a github user id that matches
+your current unix userid.    If that's not the one you want to use, pass
+a different one on the command line:
+
+./addStudentsToTeams.py -u mygithubid
+
+Be sure that this github id has admin privileges to the organization
+that GHA_GITHUB_ORG refers to.
+
+You'll be prompted for the github password that matches this organization.
+
+You should see messages indicating that the teams are being created.
 
 Creating Repositories for An Assignment--FIRST ASSIGNMENT OF COURSE
 ===================================================================
@@ -219,34 +238,35 @@ assignment setup will be more straightforward.
 
 (1) Create a directory structure for your starting point files 
 
-NOTE: The Spring 2013 version of the software stored these in the same repo with the scripts.   In Fall 2013, I'm modifying the 
-scripts so that the location of these is determined by an environment variable.   That should make it easier to use the 
-scripts for multiple courses.
 
-Create a directory for your starting point files.    I suggest making this a github repo also---public or private, inside the organization, or not---it doesn't matter.    The important thing is that you have a top level directory, for example:
+Create a directory for your starting point files.  I suggest making
+this a github repo also---public or private, inside the organization,
+or not---it doesn't matter.  The important thing is that you have a
+top level directory, for example:
 
 * ~/courses/CS1/CS1_F13_Labs 
 
 and that under that, you have subdirectories with this naming convention:
 
-* ~/courses/CS1/CS1_F13_Labs/lab00_startingPoint
-* ~/courses/CS1/CS1_F13_Labs/lab01_startingPoint
-* ~/courses/CS1/CS1_F13_Labs/lab02_startingPoint
+* ~/courses/CS1/CS1_F13_Labs/lab00
+* ~/courses/CS1/CS1_F13_Labs/lab01
+* ~/courses/CS1/CS1_F13_Labs/lab02
 * etc.
 
-The prefix "lab00", "lab01", "lab02", etc. can be anything you like---use whatever naming convention makes sense for your course.  The important thing, for convenience sake, is that you add the _startingPoint suffix to each of these, and store them in the same place.
+The prefix "lab00", "lab01", "lab02", etc. can be anything you like---use whatever naming convention makes sense for your course.  
 
 Note that if the top level directory (e.g. CS1_F13_Labs in this example) is a github repo, only THAT directory will have git plumbing (i.e., the .git subdirectory) stored in it.    That's important, because we don't want to confuse git when our script copies files from that directory into each of the student private repos in a later step.
 
-(2) Into lab00_startingPoint, Put the files you want every student to have in their lab00 repo when they first clone it.
+(2) Into lab00, put the files you want every student to have in their lab00 repo when they first clone it.
 
-(3) Setup an environment variable called GHA_START_PT (GHA=github academic workflow) that points to this starting point directory, e.g. in bash:
+(3) Setup an environment variable called GHA_STARTPOINT_DIR (GHA=github academic workflow) that points to this starting point directory, e.g. in bash:
 
-export GHA_START_PT=~/courses/CS56/CS45_F13_Labs
+export GHA_STARTPOINT_DIR=~/courses/CS56/CS45_F13_Labs
 
 The scripts will look in that directory for a subdirectory with the same name as your assignment
 
 
+(4) Run the script 
 
 
 
