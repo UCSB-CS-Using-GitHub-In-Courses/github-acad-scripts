@@ -273,7 +273,11 @@ etc.
 
 (4) Run the script 
 
+./updateForLab.py lab00
 
+That should create private repos for each student named lab00_student1, 
+lab00_student2, etc, where student1, student2, etc. are the github userids
+from the CSV file.
 
 Acknowledgements
 ================

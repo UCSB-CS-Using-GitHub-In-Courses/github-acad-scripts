@@ -48,7 +48,7 @@ def pushFilesToRepo(g,org,lab,githubid,scratchDirName,startPointDir):
     protoDirName = os.path.abspath(protoDirName)
     scratchDirName = os.path.abspath(scratchDirName)
 
-    if (firstName!=""):
+    if (githubid!=""):
         try:
             repoName = (lab + "_" + githubid)
             repo = org.get_repo(repoName)
@@ -147,6 +147,46 @@ def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointD
             
             if (result):
                 pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
+            else:
+               # the repo already exists. Just update the description
+               updateLabRepoForThisUser( g,org,lab,
+                                              line['last'],line['first'],
+                                              line['github'],
+                                              line['email'],line['csil'],
+                                              studentTeam)
+               
+
+def resetRepo(g,org,infileName,lab,scratchDirName,startPointDir,githubid):
+
+    addPyGithubToPath()
+    
+    userList = getUserList(infileName)
+
+    for line in userList:
+        
+        if ( githubid=='' or  line['github']==githubid ):
+        
+            studentTeam = addStudentToTeams(g,org,
+                                       line['last'],
+                                       line['first'],
+                                       line['github'],
+                                       line['email'],
+                                       line['csil'])
+            
+            result = createLabRepoForThisUser(g,org,lab,
+                                              line['last'],line['first'],
+                                              line['github'],
+                                              line['email'],line['csil'],
+                                              studentTeam)
+            
+            if (not result):
+               updateLabRepoForThisUser( g,org,lab,
+                                              line['last'],line['first'],
+                                              line['github'],
+                                              line['email'],line['csil'],
+                                              studentTeam)
+
+            pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
                 
         
 
@@ -279,7 +319,7 @@ def addStudentToAllStudentsTeam(g,
     except GithubException as e:
        print (e)
 
-def createLabRepo(g,org,infileName,lab,startPointDir):
+def createLabRepo(g,org,infileName,lab):
 
 
     userList = getUserList(infileName)
@@ -292,15 +332,13 @@ def createLabRepo(g,org,infileName,lab,startPointDir):
                                  line['first'],
                                  line['github'],
                                  line['email'],
-                                 line['csil'],
-                                 startPointDir)
+                                 line['csil'])
         
 
 def createLabRepoForThisUser(g,
                              org,
                              lab,
                              lastName,firstName,githubUser,email,csil,
-                             startPointDir,
                              team=False):
    
 
@@ -326,22 +364,62 @@ def createLabRepoForThisUser(g,
         return False
     
     return createRepoForOrg(org,lab,
-                            githubUserObject,team,firstName,csil,startPointDir)
+                            githubUserObject,team,firstName,lastName,githubUser,csil)
+
+
+def updateLabRepoForThisUser(g,
+                             org,
+                             lab,
+                             lastName,firstName,githubUser,email,csil,
+                             team=False):
+   
+
+    print(firstName + "\t" + lastName + "\t" + githubUser);
+    
+    githubUserObject = findUser(g,githubUser)
+
+    if (githubUserObject == False):
+        print("ERROR: could not find github user: " + githubUser);
+        return False
+
+    teamName = formatStudentTeamName(githubUser)
+
+    if (team==False):
+        team = findTeam(org,teamName);
+
+    if (team==False):
+        team = findTeam(org,teamName,refresh=True);
+
+    if (team == False):
+        print("ERROR: could not find team: " + teamName)
+        print("RUN THE addStudentsToTeams script first!")
+        return False
+    
+    return updateRepoForOrg(org,lab,
+                            githubUserObject,team,firstName,lastName,githubUser,csil)
 
     
+def formatRepoDesc(labNumber,firstName,lastName):
 
-def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,csil,startPointDir):
+    GHA_GITHUB_ORG = getenvOrDie("GHA_GITHUB_ORG",
+                        "Error: please set GHA_GITHUB_ORG to name of github organization for the course, e.g. UCSB-CS56-W14")
+
+    desc = labNumber + " for " + firstName + " " + lastName
+    return desc
+
+
+
+def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,lastName,githubid,csil):
 
     addPyGithubToPath()
     from github import GithubException
 
-
-    desc = "Github repo for " + labNumber + " for " + firstName
-    repoName =            labNumber + "_" + firstName  # name -- string
+    desc = formatRepoDesc(labNumber,firstName,lastName)
+    repoName =            labNumber + "_" + githubid  # name -- string
     try:  
         repo = org.create_repo(
             repoName,
-            labNumber + " from " + org.name + " for " + firstName, # description 
+            desc,
             "http://www.cs.ucsb.edu/~" + csil, # homepage -- string
             True, # private -- bool
             True, # has_issues -- bool
@@ -359,6 +437,28 @@ def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,
            print (e)
 
     return False
+
+
+def updateRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,lastName,githubid,csil):
+
+    addPyGithubToPath()
+    from github import GithubException
+
+    desc = formatRepoDesc(labNumber,firstName,lastName)
+    repoName =            labNumber + "_" + githubid  # name -- string
+    try:  
+        repo = org.get_repo(repoName);
+
+        repo.edit(repoName,
+                  description=desc, # description 
+                  homepage="http://www.cs.ucsb.edu/~" + csil) # homepage -- string
+        print("Updated repo "+repoName)
+        return True
+    except GithubException as e:
+       print ("Error editing repo: " + repoName + " : " + e)
+
+    return False
+
 
 def findUser(g,githubUser,quiet=False):
     "wraps the get_user method of the Github object"
@@ -531,7 +631,7 @@ def createRepoForPairTeam(org,labNumber,team):
     try:  
         repo = org.create_repo(
             repoName,
-            labNumber + " from " + org.name + " for " + team.name, # description 
+            labNumber + " for " + team.name, # description 
             "http://www.cs.ucsb.edu/~pconrad/cs56", # homepage -- string
             True, # private -- bool
             True, # has_issues -- bool
