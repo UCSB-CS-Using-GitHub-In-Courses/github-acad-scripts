@@ -1,7 +1,10 @@
-github-acadwf-scripts
+github-acad-scripts
 =====================
 
-This repo containts scripts for github academic workflow, developed at UC Santa Barbara.  Team Leader: Phill Conrad.  Further Acknowledgements and list of authors/contributors at the bottom of this README.
+This repo containts scripts for github academic workflow, developed at
+UC Santa Barbara.  Team Leader: Phill Conrad.  Further
+Acknowledgements and list of authors/contributors at the bottom of
+this README.
 
 Overview
 ========
@@ -11,7 +14,8 @@ The main workflow that is currently supported is:
 * For each assignment, for each student (or pair, or team):
 ** Set up a private repo where that student (or pair, or team) has push/pull access to the repo, as does the instructional staff (Instructor, TAs, Graders), but no other student (or pair, or team) in the course does.    The repo can be pre-populated with "starting point" materials provided by the instructor.
 
-The repos can be set up "just in time"---you don't have to set them all up at the beginning of the course.
+The repos can be set up "just in time"---you don't have to set them
+all up at the beginning of the course.
 
 
 Getting Started
@@ -116,7 +120,7 @@ That's optional though--how you organize your disk space is entirely up to you.
 
 In whatever directory where you want the repo clone to live, do this:
 
-git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acadwf-scripts.git
+git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git
 
 That should clone the repository that contains the scripts.  There is one more thing to do though---the repo contains a "sub-repository" for PyGithub---that's like a "symbolic link" or a "pointer" to a separate repo for the software that the scripts are based on.  The next step makes sure that subdirectory gets populated with the latest version of that software:
 
