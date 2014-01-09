@@ -261,9 +261,14 @@ Note that if the top level directory (e.g. CS1_F13_Labs in this example) is a gi
 
 (3) Setup an environment variable called GHA_STARTPOINT_DIR (GHA=github academic workflow) that points to this starting point directory, e.g. in bash:
 
-export GHA_STARTPOINT_DIR=~/courses/CS56/CS45_F13_Labs
+export GHA_STARTPOINT_DIR=../CS56-W14-Labs
 
-The scripts will look in that directory for a subdirectory with the same name as your assignment
+The scripts will look in that directory for a subdirectory with the same name as your assignment, e.g.
+
+../CS56-W14-Labs/lab00
+../CS56-W14-Labs/lab01
+../CS56-W14-Labs/lab02
+etc.
 
 
 (4) Run the script 

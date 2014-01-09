@@ -4,6 +4,17 @@
 
 from __future__ import print_function
 import sys
+import os
+
+def getenvOrDie(env,msg):
+   result = os.environ.get(env)
+
+   if result==None:
+      print(msg)
+      sys.exit()
+
+   return result
+
 
 def populateRepo(repo,protoDir,scratchDir):
     import subprocess
@@ -17,14 +28,14 @@ def pullRepoForGrading(repo,gradingDir):
     print ("Calling " + " ".join(callList))
     subprocess.call(callList)
 
-def pushFilesToRepo(g,org,lab,firstName,scratchDirName):
+def pushFilesToRepo(g,org,lab,githubid,scratchDirName,startPointDir):
 
     addPyGithubToPath()
     from github import GithubException
 
     import os
 
-    protoDirName = lab + "_prototype"
+    protoDirName = startPointDir + "/" + lab
     
     # check to see if protoDirName exists.  If not, bail
     
@@ -39,7 +50,7 @@ def pushFilesToRepo(g,org,lab,firstName,scratchDirName):
 
     if (firstName!=""):
         try:
-            repoName = (lab + "_" + firstName)
+            repoName = (lab + "_" + githubid)
             repo = org.get_repo(repoName)
             populateRepo(repo,protoDirName,scratchDirName)
         except GithubException as ghe:
@@ -55,14 +66,14 @@ def pushFilesToRepo(g,org,lab,firstName,scratchDirName):
                 populateRepo(repo,protoDirName,scratchDirName)
             
 
-def pushFilesToPairRepo(g,org,lab,team,scratchDirName):
+def pushFilesToPairRepo(g,org,lab,team,scratchDirName,startPointDir):
 
     addPyGithubToPath()
     from github import GithubException
 
     import os
 
-    protoDirName = lab + "_prototype"
+    protoDirName = startPointDir + "/" + lab
     
     # check to see if protoDirName exists.  If not, bail
     
@@ -107,7 +118,7 @@ def addStudentsFromFileToTeams(g,org,infileName):
                           line['email'],
                           line['csil'])
 
-def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,firstName=''):
+def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointDir,githubid=''):
 
     """
     firstName='' means updateAllStudents
@@ -119,7 +130,7 @@ def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,firstName='
 
     for line in userList:
         
-        if ( firstName=="" or line['first']==firstName ):
+        if ( githubid=="" or line['github']==githubid ):
         
             studentTeam = addStudentToTeams(g,org,
                                        line['last'],
@@ -135,7 +146,7 @@ def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,firstName='
                                               studentTeam)
             
             if (result):
-                pushFilesToRepo(g,org,lab,line['first'],scratchDirName)
+                pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
                 
         
 
@@ -161,7 +172,7 @@ def updateAllStudentsFromFileForLab(g,org,infileName,lab,scratchDirName):
                                  studentTeam)
         
         if (result):
-            pushFilesToRepo(g,org,lab,line['first'],scratchDirName)
+            pushFilesToRepo(g,org,lab,line['first'],scratchDirName,startPointDir)
 
 
 def addUserToTeam(team,user,quiet=False):
@@ -268,7 +279,7 @@ def addStudentToAllStudentsTeam(g,
     except GithubException as e:
        print (e)
 
-def createLabRepo(g,org,infileName,lab):
+def createLabRepo(g,org,infileName,lab,startPointDir):
 
 
     userList = getUserList(infileName)
@@ -281,13 +292,15 @@ def createLabRepo(g,org,infileName,lab):
                                  line['first'],
                                  line['github'],
                                  line['email'],
-                                 line['csil'])
+                                 line['csil'],
+                                 startPointDir)
         
 
 def createLabRepoForThisUser(g,
                              org,
                              lab,
                              lastName,firstName,githubUser,email,csil,
+                             startPointDir,
                              team=False):
    
 
@@ -313,11 +326,11 @@ def createLabRepoForThisUser(g,
         return False
     
     return createRepoForOrg(org,lab,
-                            githubUserObject,team,firstName,csil)
+                            githubUserObject,team,firstName,csil,startPointDir)
 
     
 
-def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,csil):
+def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,csil,startPointDir):
 
     addPyGithubToPath()
     from github import GithubException
@@ -328,7 +341,7 @@ def createRepoForOrg(org,labNumber,githubUserObject,githubTeamObject, firstName,
     try:  
         repo = org.create_repo(
             repoName,
-            labNumber + " for CS56, S13 for " + firstName, # description 
+            labNumber + " from " + org.name + " for " + firstName, # description 
             "http://www.cs.ucsb.edu/~" + csil, # homepage -- string
             True, # private -- bool
             True, # has_issues -- bool
@@ -518,7 +531,7 @@ def createRepoForPairTeam(org,labNumber,team):
     try:  
         repo = org.create_repo(
             repoName,
-            labNumber + " for CS56, S13 for " + team.name, # description 
+            labNumber + " from " + org.name + " for " + team.name, # description 
             "http://www.cs.ucsb.edu/~pconrad/cs56", # homepage -- string
             True, # private -- bool
             True, # has_issues -- bool
@@ -563,3 +576,24 @@ def convertUserList(csvFile):
 
 def makeUserDict(first,last,github,email,csil):
     return {'first': first, 'last': last, 'github': github.lower(), 'email':email.lower(), 'csil':csil.lower() }
+
+def getCSVFromURL(url, workdir, filename, message=""):
+
+   if not os.access(workdir, os.W_OK):
+      print(workdir + " is not a writeable scratch directory; " + message)
+      sys.exit()
+
+   sys.path.append("requests");
+
+   import requests
+   response = requests.get(url + '&output=csv')
+   assert response.status_code == 200, 'Wrong status code'
+
+   csvFile = workdir + "/students.csv"
+
+   with open(csvFile, 'w') as f:
+      print (response.content,file=f)
+
+   print("retrieved CSV file from URL")
+   
+   return csvFile
