@@ -26,9 +26,9 @@ EACH TIME:
 
  ./updateForLab.py --staff -u githubAdminUser lab03
  
- This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
+This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
  
- If your current effective unix userid is the same as the githubAdminUser that you want to use, you can omit the githubAdminUser flag.
+If your current effective unix userid is the same as the githubAdminUser that you want to use, you can omit the githubAdminUser flag.
  
 # To create a new lab (real version for all students, but not pairs):
 
@@ -41,6 +41,11 @@ This assumes the lab has already been created in CS56-W14-Labs
 (3) cd into github-acad-scripts and do:
 
  ./updateForLab.py -u githubAdminUser lab03 
+ 
+
+ 
+This will create the private repos  for ALL github ids listed in the Google Doc referred to by GHA_STUDENT_LIST_URL
+  
  
  
 # To create a new lab for ONE specific student:
@@ -55,15 +60,14 @@ This assumes the lab has already been created in CS56-W14-Labs
 
  ./updateForLab.py -g StudnetsGithubId -u githubAdminuser lab03
  
+
+ This will create the private repos ONLY for the single github id that is after -g, and ONLY if that githubid appears in the list in in the Google Doc referred to by GHA_STUDENT_LIST_URL
+  
  
  
  
  
  
- 
- 
- 
- This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
  
  
  
