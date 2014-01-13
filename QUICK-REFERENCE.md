@@ -2,10 +2,25 @@
 
 Scripts for using github.com in Academic Courses
 
-# Getting started:
+# Getting started
 
-git clone 
+Do the one-time steps at the bottom of this document.
 
-# Setting your environment variables
+EACH TIME: run the script env.sh by typing 
 
-Always run the script env.sh by typig
+ . env.sh
+ 
+ 
+
+
+
+
+
+# Getting started---one-time steps
+
+clone the git@github.com:UCSB-CS-Using-GitHub-In-Courses 
+
+* via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via HTTPS <code>git clone </code>
+ 
+
