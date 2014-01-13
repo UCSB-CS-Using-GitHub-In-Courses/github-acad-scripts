@@ -6,9 +6,65 @@ Scripts for using github.com in Academic Courses
 
 Do the one-time steps at the bottom of this document.
 
-EACH TIME: run the script env.sh by typing 
+EACH TIME: 
+
+(1) cd into your github-acad-scripts directory
+
+(2) run the script env.sh by typing 
 
  . env.sh
+ 
+# To create a new lab (prelimninary version for TA beta testing)
+
+(1) cd into CS56-W14-Labs
+
+(2) create a new subdirectory (e.g. lab03)
+
+(3) populate it, and then git add, git commit, git push.
+
+(4) cd into github-acad-scripts and do:
+
+ ./updateForLab.py --staff -u githubAdminUser lab03
+ 
+ This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
+ 
+ If your current effective unix userid is the same as the githubAdminUser that you want to use, you can omit the githubAdminUser flag.
+ 
+# To create a new lab (real version for all students, but not pairs):
+
+This assumes the lab has already been created in CS56-W14-Labs
+
+(1) cd into CS56-W14-Labs
+
+(2) git update
+
+(3) cd into github-acad-scripts and do:
+
+ ./updateForLab.py -u githubAdminUser lab03 
+ 
+ 
+# To create a new lab for ONE specific student:
+
+This assumes the lab has already been created in CS56-W14-Labs
+
+(1) cd into CS56-W14-Labs
+
+(2) git update
+
+(3) cd into github-acad-scripts and do:
+
+ ./updateForLab.py -g StudnetsGithubId -u githubAdminuser lab03
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
+ 
  
  
 
