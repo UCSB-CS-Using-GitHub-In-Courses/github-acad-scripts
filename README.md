@@ -146,6 +146,13 @@ This should be the URL for the "publish to web" link in Google Drive,
 without the &output=html part, since the script will append &output=csv to it
 automatically.
 
+Next, one for the spreadsheet that has your staff info
+
+ export GHA_STAFF_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
+
+This is similar to the spreadsheet for students, but it has ONLY the urls for 
+TAs, instructors, etc. that get "advance copies" of the lab for testing.
+
 Next, the spreadsheet that has your pair teams
 
  export GHA_PAIR_LIST_URL=https://docs.google.com/spreadsheet/ccc?key=xxxxx
