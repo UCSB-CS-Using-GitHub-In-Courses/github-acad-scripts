@@ -18,9 +18,21 @@ EACH TIME: run the script env.sh by typing
 
 # Getting started---one-time steps
 
-clone the git@github.com:UCSB-CS-Using-GitHub-In-Courses 
+(1) clone the github-acad-scripts repo (scripts)
 
 * via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
-* via HTTPS <code>git clone </code>
+* via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
  
+(2) cd into the github-acad-scripts repo and do:
+
+ git submodule init
+ git submodule update
+
+This should populate the PyGithub and requests subdirectories with the contents of those "sub" repositories (those are extra Python scripts from other authors, from other github repos, that our scripts depend on.)
+
+
+(3) clone the CS56-W14-Labs repo (lab starting points)
+
+* via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
 
