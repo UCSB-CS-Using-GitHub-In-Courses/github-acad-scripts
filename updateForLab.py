@@ -54,6 +54,9 @@ GHA_GITHUB_ORG = getenvOrDie("GHA_GITHUB_ORG",
 GHA_STUDENT_LIST_URL = getenvOrDie('GHA_STUDENT_LIST_URL',
                                    "Error: please set GHA_STUDENT_LIST_URL to url of Google Spreadsheet with the github ids")
 
+GHA_STAFF_LIST_URL = getenvOrDie('GHA_STAFF_LIST_URL',
+                                   "Error: please set GHA_STAFF_LIST_URL to url of Google Spreadsheet with the github ids")
+
 GHA_WORKDIR = getenvOrDie('GHA_WORKDIR',
                           "Error: please set GHA_WORKDIR to a writeable scratch directory")
 
@@ -65,8 +68,6 @@ GHA_STARTPOINT_DIR = getenvOrDie('GHA_STARTPOINT_DIR',
 
 # Now try to get the Google Spreadsheet Data
 
-csvFile  = getCSVFromURL(GHA_STUDENT_LIST_URL,GHA_WORKDIR,"students.csv",
-              " check value of GHA_WORKDIR")
 
 parser = argparse.ArgumentParser(description='Update for lab only for new users')
 
@@ -77,15 +78,30 @@ parser.add_argument('-u','--githubUsername',
                     help="github username, default is current OS user",
                     default=getpass.getuser())
 
-parser.add_argument('-g','--githubToUpdate', 
+group = parser.add_mutually_exclusive_group()
+
+group.add_argument('-g','--githubToUpdate', 
                     help="if passed, only update labxx_githubid",
                     default="")
 
+group.add_argument('-s','--staff', 
+                    help="if passed, update from GHA_",
+                    action="store_true")
+
+
 args = parser.parse_args()
+
+
 
 if not os.access(GHA_WORKDIR, os.W_OK):
     print(GHA_WORKDIR + " is not a writable directory.")
     sys.exit(1)
+
+dataSource = (GHA_STAFF_LIST_URL if args.staff else GHA_STUDENT_LIST_URL)
+csvFileName = ("staff.csv" if args.staff else "students.csv")
+
+csvFile  = getCSVFromURL(dataSource,GHA_WORKDIR,csvFileName,
+              " check value of GHA_ environment variables")
 
 pw = getpass.getpass()
 g = Github(args.githubUsername, pw, user_agent="PyGithub")
