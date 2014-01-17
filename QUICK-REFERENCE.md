@@ -7,6 +7,7 @@ Scripts for using github.com in Academic Courses
 * [Creating a new lab (preliminary for TA beta testing)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-prelimninary-version-for-ta-beta-testing)
 * [Creating a new lab (for all students, but NOT pairs)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-real-version-for-all-students-but-not-pairs)
 * [Creating a new lab for ONE student](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-for-one-specific-student)
+* [Updating the pair teams](#updating-the-pair-teams)
 
 
 ## Getting started
@@ -66,6 +67,24 @@ This assumes the lab has already been created in CS56-W14-Labs
 
  This will create the private repos ONLY for the single github id that is after -g, and ONLY if that githubid appears in the list in in the Google Doc referred to by GHA_STUDENT_LIST_URL
 
+
+## Creating pair teams
+
+(1) . env.sh  if not already done
+
+(2) ./createPairTeams -g githubAdminUser
+
+You'll be prompted for password.
+
+This should create all pair teams from the GHA_PAIR_TEAM_URL document.
+
+## Creating repo for pair teams
+
+(1) . env.sh if not already done
+
+(2) ./updatePairsForLab labxx -g githubAdminUser
+
+You'll be prompted for password
 
 ## Getting started---one-time steps
 
