@@ -689,7 +689,7 @@ def getCSVFromURL(url, workdir, filename, message=""):
    response = requests.get(url + '&output=csv')
    assert response.status_code == 200, 'Wrong status code'
 
-   csvFile = workdir + "/students.csv"
+   csvFile = workdir + "/" + filename
 
    with open(csvFile, 'w') as f:
       print (response.content,file=f)
@@ -697,3 +697,64 @@ def getCSVFromURL(url, workdir, filename, message=""):
    print("retrieved CSV file from URL")
    
    return csvFile
+
+def getPairList(userList,csvFilename):
+   
+   import csv
+
+   with open(csvFilename,'r') as f:
+      csvFile = csv.DictReader(f,delimiter=',', quotechar='"')
+      
+      pairList = convertPairList(userList,csvFile)
+      
+      return pairList
+   
+def convertPairList(userList,csvFile):
+    """
+    userList is a list of dictionaries with keys first,last,github,email,csil
+    csvFile is a list of dictionaries with keys Partner1_GithubID,Partner2_GithubID,labnumber
+    
+    returned value should be a list of dictionaries with keys teamName,user1,user2, where user1 and user2 are the elements fromn userlist where the github ids match.
+    """
+
+    pairList = []
+    userLookupDict = makeUserLookupDictByGithubId(userList)
+    for line in csvFile:
+        line['Partner1_GithubID']=line['Partner1_GithubID'].lower().strip()
+        line['Partner2_GithubID']=line['Partner2_GithubID'].lower().strip()
+        if not (line['Partner1_GithubID'] in userLookupDict):
+            raise Exception("Partner1_GithubID from pair file not found in user list: {0}".format(line['Partner1_GithubID']))
+        
+        if not (line['Partner2_GithubID'] in userLookupDict):
+            raise Exception("Partner2_GithubID from pair file not found in user list: {0}".format(line['Partner2_GithubID']))
+        
+        team = {}
+        user1 = userLookupDict[line['Partner1_GithubID']]
+        user2 = userLookupDict[line['Partner2_GithubID']]
+        if (user1["github"] > user2["github"]): 
+            # Swap if out of order
+            temp = user1
+            user1 = user2
+            user2 = temp
+        team["user1"] = user1
+        team["user2"] = user2
+        team["teamName"]="Pair_" + user1['github'] + "_" + user2['github']
+        
+        pairList.append(team)
+        
+    return pairList
+
+def makeUserLookupDictByGithubId(userList):
+    """
+    userList is a list of dictionaries with keys first,last,github,email,csil.
+    returned value is a dictionary where the keys are the github ids,
+      and the values are the original dictionaries with first,last,github,email,csil
+    """
+
+    newDict = {}
+    for user in userList:
+        if user['github'] in newDict:
+            raise Exception("duplicate github user {0}".format(user['github']))
+        newDict[user['github']]=user
+
+    return newDict
