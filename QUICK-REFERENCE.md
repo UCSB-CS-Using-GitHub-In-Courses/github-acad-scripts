@@ -3,16 +3,16 @@
 Scripts for using github.com in Academic Courses
 
 ## Table of Contents
-* [Getting Started](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#getting-started)
-* [Creating a new lab (preliminary for TA beta testing)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-prelimninary-version-for-ta-beta-testing)
-* [Creating a new lab (for all students, but NOT pairs)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-real-version-for-all-students-but-not-pairs)
+* [Getting Started](#getting-started)
+* [Creating a new lab (preliminary for TA beta testing)](#to-create-a-new-lab-prelimninary-version-for-ta-beta-testing)
+* [Creating a new lab (for all students, but NOT pairs)](#to-create-a-new-lab-real-version-for-all-students-but-not-pairs)
 * [Creating a new lab for ONE student](#to-create-a-new-lab-for-one-specific-student)
 * [Creating pair teams](#creating-pair-teams)
-* [Creating repo for pair teams](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#creating-repo-for-pair-teams)
+* [Creating repo for pair teams](#creating-repo-for-pair-teams)
 
 ## Getting started
 
-Do the [one-time steps](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#getting-started---one-time-steps) at the bottom of this document.
+Do the [one-time steps](#getting-started---one-time-steps) at the bottom of this document.
 
 EACH TIME: 
 
@@ -43,7 +43,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git pull
+2. ```git pull```
 
 3. cd into github-acad-scripts and do:
 
@@ -58,7 +58,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git pull
+2. ```git pull```
 
 3. cd into github-acad-scripts and do:
 
@@ -70,9 +70,9 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 ## Creating pair teams
 
-(1) . env.sh  if not already done
+1. ```. env.sh```  if not already done
 
-(2) ./createPairTeams -g githubAdminUser
+2. ```./createPairTeams -g githubAdminUser```
 
 You'll be prompted for password.
 
@@ -80,9 +80,9 @@ This should create all pair teams from the GHA_PAIR_TEAM_URL document.
 
 ## Creating repo for pair teams
 
-(1) . env.sh if not already done
+1. ```. env.sh``` if not already done
 
-(2) ./updatePairsForLab labxx -g githubAdminUser
+2. ```./updatePairsForLab labxx -g githubAdminUser```
 
 You'll be prompted for password
 
