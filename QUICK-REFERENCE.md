@@ -7,7 +7,7 @@ Scripts for using github.com in Academic Courses
 * [Creating a new lab (preliminary for TA beta testing)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-prelimninary-version-for-ta-beta-testing)
 * [Creating a new lab (for all students, but NOT pairs)](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-real-version-for-all-students-but-not-pairs)
 * [Creating a new lab for ONE student](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#to-create-a-new-lab-for-one-specific-student)
-* [Updating the pair teams](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#updating-the-pair-teams)
+* [Updating the pair teams](#updating-pair-teams)
 * [Creating repo for pair teams](https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts/blob/master/QUICK-REFERENCE.md#creating-repo-for-pair-teams)
 
 ## Getting started
