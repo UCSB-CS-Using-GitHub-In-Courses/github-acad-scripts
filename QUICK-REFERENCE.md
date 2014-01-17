@@ -30,7 +30,7 @@ EACH TIME:
 
 4. cd into github-acad-scripts and do:
 
- ```./updateForLab.py --staff -u githubAdminUser lab_num```
+ ```./updateForLab.py --staff -u githubAdminUser labXX```
  
 This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
  
@@ -46,7 +46,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 3. cd into github-acad-scripts and do:
 
- ```./updateForLab.py -u githubAdminUser lab_num ```
+ ```./updateForLab.py -u githubAdminUser labXX ```
  
 This will create the private repos for ALL github ids listed in the Google Doc referred to by GHA_STUDENT_LIST_URL
  
