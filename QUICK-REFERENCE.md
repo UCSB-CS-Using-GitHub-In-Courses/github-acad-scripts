@@ -42,7 +42,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git update
+2. git pull
 
 3. cd into github-acad-scripts and do:
 
@@ -57,7 +57,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git update
+2. git pull
 
 3. cd into github-acad-scripts and do:
 
