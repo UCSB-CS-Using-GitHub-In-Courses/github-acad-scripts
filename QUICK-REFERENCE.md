@@ -70,8 +70,8 @@ This assumes the lab has already been created in CS56-W14-Labs
 ## Getting started---one-time steps
 
 (1) clone the github-acad-scripts repo (scripts)
-    * via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
-    * via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
     
 (2) cd into the github-acad-scripts repo and do:
 
