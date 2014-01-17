@@ -30,7 +30,7 @@ EACH TIME:
 
 4. cd into github-acad-scripts and do:
 
- ```./updateForLab.py --staff -u githubAdminUser lab_num```
+ ```./updateForLab.py --staff -u githubAdminUser labXX```
  
 This will create the private repos ONLY for those github ids listed in the Google Doc referred to by GHA_STAFF_LIST_URL
  
@@ -42,11 +42,11 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git update
+2. git pull
 
 3. cd into github-acad-scripts and do:
 
- ```./updateForLab.py -u githubAdminUser lab_num ```
+ ```./updateForLab.py -u githubAdminUser labXX ```
  
 This will create the private repos for ALL github ids listed in the Google Doc referred to by GHA_STUDENT_LIST_URL
  
@@ -57,7 +57,7 @@ This assumes the lab has already been created in CS56-W14-Labs
 
 1. cd into CS56-W14-Labs
 
-2. git update
+2. git pull
 
 3. cd into github-acad-scripts and do:
 
@@ -70,8 +70,8 @@ This assumes the lab has already been created in CS56-W14-Labs
 ## Getting started---one-time steps
 
 (1) clone the github-acad-scripts repo (scripts)
-    * via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
-    * via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
     
 (2) cd into the github-acad-scripts repo and do:
 
