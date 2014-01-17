@@ -582,7 +582,7 @@ def addTeamsForPairsInFile(g,org,studentFileName,pairFileName):
 
     
 
-def updatePairsForLab(g,org,lab,scratchDirName,prefix=""):
+def updatePairsForLab(g,org,lab,scratchDirName,startPointDir,prefix=""):
 
     """
     go through all Pair_First1_First2 teams and create a repo for each one for this
@@ -606,7 +606,7 @@ def updatePairsForLab(g,org,lab,scratchDirName,prefix=""):
             result = createLabRepoForThisPairTeam(g,org,lab,team)
             
             if (result):
-                pushFilesToPairRepo(g,org,lab,team,scratchDirName)
+                pushFilesToPairRepo(g,org,lab,team,scratchDirName,startPointDir)
                 
         
 
