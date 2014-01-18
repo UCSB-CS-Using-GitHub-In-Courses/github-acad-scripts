@@ -40,17 +40,19 @@ fi
 
 git pull 
 
-cp -nvr $protoDir/* .
+rm -rvf *
+
+cp -vr $protoDir/* .
 git add .
 git add -f lib/*
 
 
 if [ -f $protoDir/.gitignore ] ; then
-   cp -nv $protoDir/.gitignore .
+   cp -v $protoDir/.gitignore .
    git add .gitignore
 fi
 if [ -f $protoDir/.gitmodues ] ; then
-   cp -nv $protoDir/.gitmodules .
+   cp -v $protoDir/.gitmodules .
    git add .gitmodules
 fi
 

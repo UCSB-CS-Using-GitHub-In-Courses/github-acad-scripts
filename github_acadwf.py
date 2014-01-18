@@ -22,6 +22,13 @@ def populateRepo(repo,protoDir,scratchDir):
     print ("Calling " + " ".join(callList))
     subprocess.call(callList)
 
+def resetRepoShell(repo,protoDir,scratchDir):
+    import subprocess
+    callList = ["./resetRepo.sh",repo.name,repo.ssh_url,protoDir,scratchDir]
+    print ("Calling " + " ".join(callList))
+    subprocess.call(callList)
+
+
 def pullRepoForGrading(repo,gradingDir):
     import subprocess
     callList = ["./pullRepoForGrading.sh",repo.name,repo.ssh_url,gradingDir]
@@ -65,6 +72,45 @@ def pushFilesToRepo(g,org,lab,githubid,scratchDirName,startPointDir):
             if (repo.name.startswith(lab+"_")):
                 populateRepo(repo,protoDirName,scratchDirName)
             
+
+def resetFilesInRepo(g,org,lab,githubid,scratchDirName,startPointDir):
+
+    addPyGithubToPath()
+    from github import GithubException
+
+    import os
+
+    protoDirName = startPointDir + "/" + lab
+    
+    # check to see if protoDirName exists.  If not, bail
+    
+    if (not os.path.isdir(protoDirName)):
+        raise Exception(protoDirName + " does not exist.")
+
+    if (not os.path.isdir(scratchDirName)):
+        raise Exception(scratchDirName + " does not exist.")
+
+    protoDirName = os.path.abspath(protoDirName)
+    scratchDirName = os.path.abspath(scratchDirName)
+
+    if (githubid!=""):
+        try:
+            repoName = (lab + "_" + githubid)
+            repo = org.get_repo(repoName)
+            populateRepo(repo,protoDirName,scratchDirName)
+        except GithubException as ghe:
+            print("Could not find repo " + repoName + ":" + str(ghe))
+            
+    else:
+            
+        # User wants to update ALL repos that start with labxx_
+        
+        repos = org.get_repos()
+        for repo in repos:
+            if (repo.name.startswith(lab+"_")):
+                restRepoShell(repo,protoDirName,scratchDirName)
+            
+
 
 def pushFilesToPairRepo(g,org,lab,team,scratchDirName,startPointDir):
 
@@ -145,15 +191,14 @@ def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointD
                                               line['email'],line['csil'],
                                               studentTeam)
             
-            if (result):
-                pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
-            else:
-               # the repo already exists. Just update the description
-               updateLabRepoForThisUser( g,org,lab,
-                                              line['last'],line['first'],
-                                              line['github'],
-                                              line['email'],line['csil'],
-                                              studentTeam)
+
+            pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
+
+            updateLabRepoForThisUser( g,org,lab,
+                                      line['last'],line['first'],
+                                      line['github'],
+                                      line['email'],line['csil'],
+                                      studentTeam)
                
 
 def resetRepo(g,org,infileName,lab,scratchDirName,startPointDir,githubid):
@@ -186,7 +231,7 @@ def resetRepo(g,org,infileName,lab,scratchDirName,startPointDir,githubid):
                                               line['email'],line['csil'],
                                               studentTeam)
 
-            pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
+            resetFilesInRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
                 
         
 
@@ -605,8 +650,8 @@ def updatePairsForLab(g,org,lab,scratchDirName,startPointDir,prefix=""):
             print("\nTeam: " + team.name,end='')
             result = createLabRepoForThisPairTeam(g,org,lab,team)
             
-            if (result):
-                pushFilesToPairRepo(g,org,lab,team,scratchDirName,startPointDir)
+
+            pushFilesToPairRepo(g,org,lab,team,scratchDirName,startPointDir)
                 
         
 
