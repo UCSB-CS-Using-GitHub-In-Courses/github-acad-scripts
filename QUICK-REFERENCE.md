@@ -18,7 +18,9 @@ EACH TIME:
 
 1. cd into your github-acad-scripts directory
 
-2. run the script env.sh by typing 
+2. ```git pull`` to update any changes
+
+3. run the script env.sh by typing 
  ```. env.sh```
  
 ## To create a new lab (prelimninary version for TA beta testing)
