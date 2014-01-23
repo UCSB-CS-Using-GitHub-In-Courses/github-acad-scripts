@@ -78,6 +78,11 @@ parser.add_argument('-u','--githubUsername',
                     help="github username, default is current OS user",
                     default=getpass.getuser())
 
+parser.add_argument('-f','--force', 
+                    help="if passed, always copy files even for existing repos",
+                    action="store_true")
+
+
 group = parser.add_mutually_exclusive_group()
 
 group.add_argument('-g','--githubToUpdate', 
@@ -109,7 +114,7 @@ g = Github(args.githubUsername, pw, user_agent="PyGithub")
 org= g.get_organization(GHA_GITHUB_ORG)
 
 updateStudentsFromFileForLab(g,org,
-                             csvFile,args.lab,GHA_WORKDIR,GHA_STARTPOINT_DIR,args.githubToUpdate)
+                             csvFile,args.lab,GHA_WORKDIR,GHA_STARTPOINT_DIR,args.force,args.githubToUpdate)
 
 
 

@@ -164,7 +164,7 @@ def addStudentsFromFileToTeams(g,org,infileName):
                           line['email'],
                           line['csil'])
 
-def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointDir,githubid=''):
+def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointDir,force,githubid=''):
 
     """
     firstName='' means updateAllStudents
@@ -192,7 +192,8 @@ def updateStudentsFromFileForLab(g,org,infileName,lab,scratchDirName,startPointD
                                               studentTeam)
             
 
-            pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
+            if (result or force):
+               pushFilesToRepo(g,org,lab,line['github'],scratchDirName,startPointDir)
 
             updateLabRepoForThisUser( g,org,lab,
                                       line['last'],line['first'],
