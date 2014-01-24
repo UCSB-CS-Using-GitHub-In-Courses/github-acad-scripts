@@ -804,3 +804,9 @@ def makeUserLookupDictByGithubId(userList):
         newDict[user['github']]=user
 
     return newDict
+
+def pullRepoForGrading(repo,gradingDir):
+    import subprocess
+    callList = ["./pullRepoForGrading.sh",repo.name,repo.ssh_url,gradingDir]
+    print ("Calling " + " ".join(callList))
+    subprocess.call(callList)
