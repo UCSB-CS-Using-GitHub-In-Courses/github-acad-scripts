@@ -104,8 +104,8 @@ git submodule update
  
 (3) clone the CS56-W14-Labs repo (lab starting points)
 
-* via SSH <code>git clone git@github.com:UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
-* via HTTPS <code>git clone https://github.com/UCSB-CS-Using-GitHub-In-Courses/github-acad-scripts.git</code>
+* via SSH <code>git clone git@github.com:UCSB-CS56-W14/CS56-W14-Labs.git</code>
+* via HTTPS <code>git clone https://github.com/UCSB-CS56-W14/CS56-W14-Labs.git</code>
 
 (4) Copy the <code>env.sh.sample</code> to <code>env.sh</code> in your copy of the github-acad-scripts repo
 
