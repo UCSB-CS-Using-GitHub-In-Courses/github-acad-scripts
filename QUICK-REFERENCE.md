@@ -9,6 +9,7 @@ Scripts for using github.com in Academic Courses
 * [Creating a new lab for ONE student](#to-create-a-new-lab-for-one-specific-student)
 * [Creating pair teams](#creating-pair-teams)
 * [Creating repo for pair teams](#creating-repo-for-pair-teams)
+* [Cloning from all student repos to grade a lab](#gathering code from all student repositories for lab grading)
 
 ## Getting started
 
@@ -88,6 +89,17 @@ This should create all pair teams from the GHA_PAIR_TEAM_URL document.
 
 You'll be prompted for password
 
+## Gathering code from all student repositories for lab grading
+
+1. ```. env.sh``` if not already done
+
+2. create your `GHA_WORKDIR` if not already done
+
+3. ```./getLabSubmissions.py -u githubAdminUser labXX```
+ NOTE - the ```labXX``` portion is a prefix, so for example if you only wanted to get the lab01 submissions of users whose github ID's start with an "a", you could use the prefix ```lab01_a```. You could also use the prefix to specify one student/pair lab submission.
+
+You'll be prompted for password when doing this.
+
 ## Getting started---one-time steps
 
 (1) clone the github-acad-scripts repo (scripts)
@@ -116,5 +128,9 @@ cd back into your github-acad-scripts repo, and do this:
 The file <code>env.sh</code> is NOT under github revision control---that's because it is designed to contain the "unpublished, obscure" URLs of the Google Documents that contain the class list.    Those are "sensitive", since the documents contain students' real names, email addresses, etc.  Therefore we don't want those URLs to be in a public repository.
 
 (5) Edit your now local, private, <code>env.sh</code> to match the proper values (you can get those from your instructor, or whoever is setting up the Google Docs for your course.)
+
+(6) Create your "work" directory
+
+ ```mkdir -p $GHA_WORKDIR```
 
 
