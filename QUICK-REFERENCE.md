@@ -9,7 +9,7 @@ Scripts for using github.com in Academic Courses
 * [Creating a new lab for ONE student](#to-create-a-new-lab-for-one-specific-student)
 * [Creating pair teams](#creating-pair-teams)
 * [Creating repo for pair teams](#creating-repo-for-pair-teams)
-* [Cloning from all student repos to grade a lab](#gathering code from all student repositories for lab grading)
+* [Cloning from all student repos to grade a lab](#gathering-code-from-all-student-repositories-for-lab-grading)
 
 ## Getting started
 
