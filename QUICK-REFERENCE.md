@@ -87,7 +87,11 @@ This should create all pair teams from the GHA_PAIR_TEAM_URL document.
 
 2. ```./updatePairsForLab labxx -g githubAdminUser```
 
-You'll be prompted for password
+You'll be prompted for password. Instead, if you want to create a repo for one pair team, you will use the `-t` flag and then a prefix of the pair name you want to make. For example
+
+`./updatePairsForLab labxx -u githubAdminUser -t Pair_studentuser` 
+
+where `studentuser` is a prefix of the first student's github ID
 
 ## Gathering code from all student repositories for lab grading
 
